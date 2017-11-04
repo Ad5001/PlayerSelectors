@@ -36,10 +36,7 @@ class AllPlayers extends Selector{
         foreach(Server::getInstance()->getOnlinePlayers() as $p){
             if($params["c"] !== 0 && count($return) == $params["c"]) break; // Too much players
             if($p->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") break; // Not in the right level
-            if(!$this->checkDefaultParams($p, $params)) {
-                echo "Not checked param";
-                break;
-            }
+            if(!$this->checkDefaultParams($p, $params)) break;
             $return[] = $p->getName();
         }
         return $return;

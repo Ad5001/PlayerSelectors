@@ -80,7 +80,6 @@ class Main extends PluginBase implements Listener {
         foreach($matches[0] as $index => $match){
             if(isset(self::$selectors[$matches[1][$index]])){ // Does the selector exist?
                 // Search for the parameters
-                echo $matches[1][$index];
                 $params = self::$selectors[$matches[1][$index]]->acceptsModifiers() ? $this->checkArgParams($matches, $index): [];
                 // Applying the selector
                 $newCommandsToExecute = [];
