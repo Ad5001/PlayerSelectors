@@ -46,6 +46,7 @@ class Main extends PluginBase implements Listener {
      * When a command is executed, check for selectors
      *
      * @param PlayerCommandPreProcessEvent $event
+     * @priority HIGHEST
      * @return void
      */
     public function onCommandPreProcess(PlayerCommandPreProcessEvent $event): void{
@@ -59,6 +60,7 @@ class Main extends PluginBase implements Listener {
      * When a command is executed, check for selectors
      *
      * @param PlayerCommandPreProcessEvent $event
+     * @priority HIGHEST
      * @return void
      */
     public function onServerCommand(ServerCommandEvent $event): void{
@@ -86,6 +88,7 @@ class Main extends PluginBase implements Listener {
                 foreach($commandsToExecute as $index => $cmd){
                     // Foreaching the returning commands to push them to the new commands to be executed at the next run.
                     foreach(self::$selectors[$matches[1][$index]]->applySelector($sender, $params) as $selectorStr){
+                        if(strpos($selectorStr, " ") !== -1) $selectorStr = explore($selectorStr)[count(explode($selectorStr)) - 1]; // Name w/ spaces. Match the nearest name in the player. Not perfect :/
                         $newCommandsToExecute[] = substr_replace($cmd, " " . $selectorStr . " ", strpos($cmd, $match), strlen($match));
                     }
                     if(count($newCommandsToExecute) == 0) {
