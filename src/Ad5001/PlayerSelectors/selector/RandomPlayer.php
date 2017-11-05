@@ -34,8 +34,8 @@ class RandomPlayer extends Selector{
         $params = $parameters + $defaultParams;
         $possible = [];
         foreach(Server::getInstance()->getOnlinePlayers() as $p){
-            if($p->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") break; // Not in the right level
-            if(!$this->checkDefaultParams($p, $params)) break;
+            if($p->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") continue; // Not in the right level
+            if(!$this->checkDefaultParams($p, $params)) continue;
             $possible[] = $p;
         }
         if(count($possible) == 0) return [];

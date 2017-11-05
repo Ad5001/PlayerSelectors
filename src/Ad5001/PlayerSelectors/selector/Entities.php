@@ -37,9 +37,9 @@ class Entities extends Selector{
         $return = [];
         foreach(Server::getInstance()->getLevels() as $lvl){
             foreach($lvl->getEntities() as $e){
-                if($params["c"] !== 0 && count($return) == $params["c"]) break; // Too much players
-                if($e->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") break; // Not in the right level
-                if(!$this->checkDefaultParams($e, $params)) break;
+                if($params["c"] !== 0 && count($return) == $params["c"]) continue; // Too much players
+                if($e->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") continue; // Not in the right level
+                if(!$this->checkDefaultParams($e, $params)) continue;
                 $return[] = "e" . $e->getId();
             }
         }

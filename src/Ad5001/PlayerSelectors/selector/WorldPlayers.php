@@ -38,9 +38,9 @@ class WorldPlayers extends Selector{
         $params = $parameters + $defaultParams;
         $return = [];
         foreach(Server::getInstance()->getOnlinePlayers() as $p){
-            if($params["c"] !== 0 && count($return) == $params["c"]) break; // Too much players
-            if($p->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") break; // Not in the right level
-            if(!$this->checkDefaultParams($p, $params)) break;
+            if($params["c"] !== 0 && count($return) == $params["c"]) continue; // Too much players
+            if($p->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") continue; // Not in the right level
+            if(!$this->checkDefaultParams($p, $params)) continue;
             $return[] = $p->getName();
         }
         return $return;
