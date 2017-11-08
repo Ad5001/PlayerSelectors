@@ -51,8 +51,7 @@ class Main extends PluginBase implements Listener {
      */
     public function onCommandPreProcess(PlayerCommandPreProcessEvent $event): void{
         $m = $event->getMessage();
-        $this->execSelectors($m, $event->getPlayer());
-        $event->setCancelled();
+        if($this->execSelectors($m, $event->getPlayer())) $event->setCancelled();
     }
         
         
@@ -65,8 +64,7 @@ class Main extends PluginBase implements Listener {
      */
     public function onServerCommand(ServerCommandEvent $event): void{
         $m = $event->getCommand();
-        $this->execSelectors($m, $event->getSender());
-        $event->setCancelled();
+        if($this->execSelectors($m, $event->getSender())) $event->setCancelled();
     }
 
     /**
@@ -74,9 +72,9 @@ class Main extends PluginBase implements Listener {
      *
      * @param string $m The command
      * @param CommandSender $sender
-     * @return void
+     * @return bool - If selectors were found or not.
      */
-    public function execSelectors(string $m, CommandSender $sender): void{
+    public function execSelectors(string $m, CommandSender $sender): bool{
         preg_match_all($this->buildRegExr(), $m, $matches);
         $commandsToExecute = [$m];
         foreach($matches[0] as $index => $match){
@@ -93,16 +91,18 @@ class Main extends PluginBase implements Listener {
                     }
                     if(count($newCommandsToExecute) == 0) {
                         $sender->sendMessage("§cYour selector $match (" . self::$selectors[$matches[1][$index]]->getName() . ") did not mactch any player/entity.");
-                        return;
+                        return true;
                     }
                 }
                 $commandsToExecute = $newCommandsToExecute;
             }
         }
+        if(!isset($matches[0][0])) return false;
         // Then we have all the commands here and we can execute them
         foreach($commandsToExecute as $cmd){
             $this->getServer()->dispatchCommand($sender, $cmd);
         }
+        return true;
     }
 
     /**
