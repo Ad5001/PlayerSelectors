@@ -86,7 +86,7 @@ class Main extends PluginBase implements Listener {
                 foreach($commandsToExecute as $index => $cmd){
                     // Foreaching the returning commands to push them to the new commands to be executed at the next run.
                     foreach(self::$selectors[$matches[1][$index]]->applySelector($sender, $params) as $selectorStr){
-                        if(strpos($selectorStr, " ") !== -1) $selectorStr = explore($selectorStr)[count(explode($selectorStr)) - 1]; // Name w/ spaces. Match the nearest name in the player. Not perfect :/
+                        if(strpos($selectorStr, " ") !== -1) $selectorStr = explode($selectorStr)[count(explode($selectorStr)) - 1]; // Name w/ spaces. Match the nearest name in the player. Not perfect :/
                         $newCommandsToExecute[] = substr_replace($cmd, " " . $selectorStr . " ", strpos($cmd, $match), strlen($match));
                     }
                     if(count($newCommandsToExecute) == 0) {
