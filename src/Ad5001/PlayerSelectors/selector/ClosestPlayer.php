@@ -27,7 +27,7 @@ class ClosestPlayer extends Selector{
         // Console
         if(!($sender instanceof Player)) {
             if(count($online) > 0){
-                return [$online[0]];
+                return [$online[array_keys($online)[0]]];
             } else {
                 return [$sender->getName()];
             }
