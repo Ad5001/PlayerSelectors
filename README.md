@@ -1,4 +1,7 @@
-<h1><img src="https://github.com/Ad5001/PlayerSelectors/raw/master/icon.png">&nbsp;&nbsp;PlayerSelectors</h1>
+<h1>
+<img src="https://github.com/Ad5001/PlayerSelectors/raw/master/icon.png" width="36px" height="36px">&nbsp;&nbsp;PlayerSelectors - 
+<a href="https://poggit.pmmp.io/p/GenPainterPE"><img src="https://poggit.pmmp.io/shield.approved/GenPainterPE"></a>
+</h1>
 Implementation of minecraft selectors into PocketMine!
 
 <h1><img src="https://png.icons8.com/?id=365&size=1x">&nbsp;&nbsp;How to install?</h1>
@@ -8,9 +11,9 @@ Implementation of minecraft selectors into PocketMine!
 
 <h1><img src="https://png.icons8.com/?id=3330&size=1x">&nbsp;&nbsp;Implemented features</h1>
 PlayerSelectors implements all the default minecraft selectors:<br>   
-- @a - All players<br>    
-- @p - Nearset player<br> 
-- @e - Entities<br>   
+- @a - All players<br>
+- @p - Nearset player<br>
+- @e - Entities<br>
 - @r - Random player<br>  
 - @s - Self/Sender<br>    
 but also features a custom made one:<br>
