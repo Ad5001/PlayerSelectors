@@ -1,6 +1,6 @@
 <h1>
 <img src="https://github.com/Ad5001/PlayerSelectors/raw/master/icon.png" width="36px" height="36px">&nbsp;&nbsp;PlayerSelectors - 
-<a href="https://poggit.pmmp.io/p/GenPainterPE"><img src="https://poggit.pmmp.io/shield.approved/GenPainterPE"></a>
+<a href="https://poggit.pmmp.io/p/PlayerSelectors"><img src="https://poggit.pmmp.io/shield.approved/PlayerSelectors"></a>
 </h1>
 Implementation of minecraft selectors into PocketMine!
 
