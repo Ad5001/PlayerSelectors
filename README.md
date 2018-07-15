@@ -1,3 +1,4 @@
+## This repository was moved to [git.ad5001.eu](https://git.ad5001.eu/Ad5001/PlayerSelectors)
 <h1>
 <img src="https://github.com/Ad5001/PlayerSelectors/raw/master/icon.png" width="36px" height="36px">&nbsp;&nbsp;PlayerSelectors - 
 <a href="https://poggit.pmmp.io/p/PlayerSelectors"><img src="https://poggit.pmmp.io/shield.approved/PlayerSelectors"></a>
