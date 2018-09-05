@@ -1,4 +1,4 @@
-> The original developer is Ad 5001, but because development is stopped, I develop it instead.
+> The original developer is Ad5001, but because development is stopped, I develop it instead.
 
 <h1>
 <img src="https://github.com/fuyutsuki/PlayerSelectors/raw/master/assets/icon.png" width=72 height=72>&nbsp;&nbsp;PlayerSelectors
