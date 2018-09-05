@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace Ad5001\PlayerSelectors;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\event\Listener;
 use pocketmine\command\CommandSender;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
-use pocketmine\event\server\ServerCommandEvent;
-
 use Ad5001\PlayerSelectors\selector\Selector;
 use Ad5001\PlayerSelectors\selector\ClosestPlayer;
 use Ad5001\PlayerSelectors\selector\AllPlayers;
@@ -18,46 +14,27 @@ use Ad5001\PlayerSelectors\selector\WorldPlayers;
 use Ad5001\PlayerSelectors\selector\Entities;
 use Ad5001\PlayerSelectors\selector\SelfSelector;
 
+/**
+ * Class Main
+ * @package Ad5001\PlayerSelectors
+ */
+class Main extends PluginBase {
 
-class Main extends PluginBase implements Listener {
-
+	/** @var Selector[] */
     protected static $selectors = [];
 
     public function onEnable(): void{
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    	$listener = new EventListener($this);
+        $this->getServer()->getPluginManager()->registerEvents($listener, $this);
         // Registering the default selectors
-        self::registerSelector(new ClosestPlayer());
-        self::registerSelector(new AllPlayers());
-        self::registerSelector(new RandomPlayer());
-        self::registerSelector(new WorldPlayers());
-        self::registerSelector(new Entities());
-        self::registerSelector(new SelfSelector());
-    }
-    
-    
-    /**
-     * When a command is executed, check for selectors
-     *
-     * @param PlayerCommandPreProcessEvent $event
-     * @priority HIGHEST
-     * @return void
-     */
-    public function onCommandPreProcess(PlayerCommandPreProcessEvent $event): void{
-        $m = substr($event->getMessage(), 1);
-        if(substr($event->getMessage(), 0, 1) == "/" && $this->execSelectors($m, $event->getPlayer())) $event->setCancelled();
-    }
-        
-        
-    /**
-     * When a command is executed, check for selectors
-     * @param PlayerCommandPreProcessEvent $event
-     * @priority HIGHEST
-	 * @deprecated TODO: Change to CommandEv
-     * @return void
-     */
-    public function onServerCommand(ServerCommandEvent $event): void{
-        $m = $event->getCommand();
-        if($this->execSelectors($m, $event->getSender())) $event->setCancelled();
+		self::registerSelectors([
+			new AllPlayers(),
+			new ClosestPlayer(),
+			new Entities(),
+			new RandomPlayer(),
+			new SelfSelector(),
+			new WorldPlayers()
+		]);
     }
 
     /**
@@ -67,7 +44,7 @@ class Main extends PluginBase implements Listener {
      * @return bool - If selectors were found or not.
      */
     public function execSelectors(string $m, CommandSender $sender): bool{
-        preg_match_all($this->buildRegExr(), $m, $matches);
+        preg_match_all($this->buildRegex(), $m, $matches);
         $commandsToExecute = [$m];
         foreach($matches[0] as $index => $match){
             if(isset(self::$selectors[$matches[1][$index]])){ // Does the selector exist?
@@ -100,6 +77,7 @@ class Main extends PluginBase implements Listener {
     /**
      * Return all the params in an array form in a match.
      * @param array $match
+	 * @param int $index
      * @return array
      */
     public function checkArgParams(array $match, int $index): array{
@@ -107,7 +85,7 @@ class Main extends PluginBase implements Listener {
         if(strlen($match[2][$index]) !== 0){ // Is there any command parameter?
             if(strpos($match[3][$index], ",") !== -1){ // Is there multiple arguments
                 foreach(explode(",", $match[3][$index]) as $param){
-                    // Param here is in form argName=argproperty. 
+                    // Param here is in form argName=argProperty.
                     // Parsing it to put it into the $params
                     $parts = explode("=", $param);
                     $params[$parts[0]] = $parts[1];
@@ -121,31 +99,42 @@ class Main extends PluginBase implements Listener {
     }
 
     /**
-     * Build the regexr for parsing selectors in commands
+     * Build the regex for parsing selectors in commands
      * $1 is the selector character(s)
      * $2 is "Is there any arguments to the command?"
      * $3 is the list of arguments
      * @return string
      */
-    public function buildRegExr(): string {
-        $regexr = "/ @("; // Space is to check that it's an argument on it's own and not a part of one 
+    public function buildRegex(): string {
+        $regex = "/ @("; // Space is to check that it's an argument on it's own and not a part of one
         // Adding the selectors
-        $regexr .= preg_replace("/(\\$|\\(|\\)|\\^|\\[|\\])/", "\\\\$1", // Always parse input we don't trust!
+        $regex .= preg_replace("/(\\$|\\(|\\)|\\^|\\[|\\])/", "\\\\$1", // Always parse input we don't trust!
             implode("|", array_keys(self::$selectors))
         ); 
         // Adding the arguments
-        $regexr .= ")(\\[(((\w+)?=(.)+(,)?){1,})\\])?";
-        // Closing the regexr
-        $regexr .= "( |$)/"; // Space is to check that it's an argument on it's own and not a part of one (cf twitter accounts would we used with @+some letters)
-        return $regexr;
+        $regex .= ")(\\[(((\w+)?=(.)+(,)?){1,})\\])?";
+        // Closing the regex
+        $regex .= "( |$)/"; // Space is to check that it's an argument on it's own and not a part of one (cf twitter accounts would we used with @+some letters)
+        return $regex;
     }
+
+	/**
+	 * Register some selectors
+	 * @param array $sels
+	 * @return void
+	 */
+    public static function registerSelectors(array $sels): void {
+    	foreach ($sels as $sel) {
+    		self::registerSelector($sel);
+		}
+	}
     
     /**
      * Registers a selector
      * @param Selector $sel
      * @return void
      */
-    public static function registerSelector(Selector $sel): void{
+    public static function registerSelector(Selector $sel): void {
         self::$selectors[$sel->getSelectorChar()] = $sel;
     }
         
@@ -154,16 +143,24 @@ class Main extends PluginBase implements Listener {
      * @param string $selChar The selector character
      * @return void
      */
-    public static function unregisterSelector(string $selChar): void{
-        unset(self::$selectors[$selChar]);
+    public static function unregisterSelector(string $selChar = ""): void {
+    	if (!empty($selChar)) {
+    		if (isset(self::$selectors[$selChar])) {
+    			unset(self::$selectors[$selChar]);
+			}else {
+    			throw new \InvalidArgumentException($selChar." was not registered.");
+			}
+		}else {
+			self::$selectors = [];
+		}
     }
 
     /**
      * Returns a selector
      * @param string $selChar The selector character
-     * @return Selector
+     * @return null|Selector
      */
-    public static function getSelector(string $selChar): Selector{
-        return self::$selectors[$selChar];
+    public static function getSelector(string $selChar): ?Selector {
+        return self::$selectors[$selChar] ?? null;
     }
 }
