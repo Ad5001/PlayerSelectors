@@ -1,16 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ad5001\PlayerSelectors;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
-use pocketmine\Player;
-use pocketmine\Server;
 use pocketmine\command\CommandSender;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\server\ServerCommandEvent;
-
 
 use Ad5001\PlayerSelectors\selector\Selector;
 use Ad5001\PlayerSelectors\selector\ClosestPlayer;
@@ -25,11 +23,6 @@ class Main extends PluginBase implements Listener {
 
     protected static $selectors = [];
 
-    /**
-     * When the plugin enables
-     *
-     * @return void
-     */
     public function onEnable(): void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         // Registering the default selectors
@@ -57,9 +50,9 @@ class Main extends PluginBase implements Listener {
         
     /**
      * When a command is executed, check for selectors
-     *
      * @param PlayerCommandPreProcessEvent $event
      * @priority HIGHEST
+	 * @deprecated TODO: Change to CommandEv
      * @return void
      */
     public function onServerCommand(ServerCommandEvent $event): void{
@@ -69,7 +62,6 @@ class Main extends PluginBase implements Listener {
 
     /**
      * Parses selectors and executes the commands
-     *
      * @param string $m The command
      * @param CommandSender $sender
      * @return bool - If selectors were found or not.
@@ -107,9 +99,8 @@ class Main extends PluginBase implements Listener {
 
     /**
      * Return all the params in an array form in a match.
-     *
      * @param array $match
-     * @return void
+     * @return array
      */
     public function checkArgParams(array $match, int $index): array{
         $params = [];
@@ -134,7 +125,6 @@ class Main extends PluginBase implements Listener {
      * $1 is the selector character(s)
      * $2 is "Is there any arguments to the command?"
      * $3 is the list of arguments
-     *
      * @return string
      */
     public function buildRegExr(): string {
@@ -152,7 +142,6 @@ class Main extends PluginBase implements Listener {
     
     /**
      * Registers a selector
-     *
      * @param Selector $sel
      * @return void
      */
@@ -162,7 +151,6 @@ class Main extends PluginBase implements Listener {
         
     /**
      * Unregisters a selector
-     *
      * @param string $selChar The selector character
      * @return void
      */
@@ -172,7 +160,6 @@ class Main extends PluginBase implements Listener {
 
     /**
      * Returns a selector
-     *
      * @param string $selChar The selector character
      * @return Selector
      */
