@@ -1,25 +1,26 @@
-## This repository was moved to [git.ad5001.eu](https://git.ad5001.eu/Ad5001/PlayerSelectors)
+> The original developer is Ad 5001, but because development is stopped, I develop it instead.
+
 <h1>
-<img src="https://github.com/Ad5001/PlayerSelectors/raw/master/icon.png" width="36px" height="36px">&nbsp;&nbsp;PlayerSelectors - 
-<a href="https://poggit.pmmp.io/p/PlayerSelectors"><img src="https://poggit.pmmp.io/shield.approved/PlayerSelectors"></a>
+<img src="https://github.com/fuyutsuki/PlayerSelectors/raw/master/assets/icon.png" width=72 height=72>&nbsp;&nbsp;PlayerSelectors
 </h1>
 Implementation of minecraft selectors into PocketMine!
 
-<h1><img src="https://png.icons8.com/?id=365&size=1x">&nbsp;&nbsp;How to install?</h1>
+## How to install?
 1. Download the .phar file from the link given at the top of the repo
 2. Put that phar into your "plugins" folder
 3. Restart your server and Selectors should be reay to go!
 
-<h1><img src="https://png.icons8.com/?id=3330&size=1x">&nbsp;&nbsp;Implemented features</h1>
-PlayerSelectors implements all the default minecraft selectors:<br>   
-- @a - All players<br>
-- @p - Nearset player<br>
-- @e - Entities<br>
-- @r - Random player<br>  
-- @s - Self/Sender<br>    
-but also features a custom made one:<br>
-Since PocketMine implements a multi world system, you can easily select players from your current world using the "@w" selector!
-<br><br>
+## Implemented features
+PlayerSelectors implements all the default minecraft selectors:
+- @a - All players
+- @p - Nearset player
+- @e - Entities
+- @r - Random player
+- @s - Self/Sender  
+
+### but also features a custom made one:  
+Since PocketMine implements a multi-world-system, you can easily select players from your current world using the "@w" selector!  
+
 Minecraft also supports specific search parameters such as the distance from the sender, the count of matched player/entities, ...<br>
 All the standard minecraft search params can be used with the syntax 
 
