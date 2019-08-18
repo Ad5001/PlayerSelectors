@@ -17,7 +17,6 @@ class ClosestPlayer extends Selector{
     /**
      * Executes the selector. 
      * Documentation is in the Selector.php file.
-     *
      * @param CommandSender $sender
      * @param array $parameters
      * @return array
