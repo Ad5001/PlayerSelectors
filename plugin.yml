@@ -1,9 +1,6 @@
----
 name: PlayerSelectors
-author:  Ad5001
-version: 1.0
-api: [3.0.0-ALPHA9]
+author: Ad5001
+version: 1.0.0
+api:
+- 3.0.0
 main: Ad5001\PlayerSelectors\Main
-commands: []
-permissions: []
-...
