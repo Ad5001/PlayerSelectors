@@ -1,6 +1,4 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Ad5001/PlayerSelectors
-branches:
-- master
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/poggit-orphanage/PlayerSelectors
 projects:
   PlayerSelectors:
     path: ""
