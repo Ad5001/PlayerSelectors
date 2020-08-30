@@ -6,7 +6,6 @@ namespace Ad5001\PlayerSelectors\selector;
 
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
-use pocketmine\Player;
 use pocketmine\level\Position;
 
 
