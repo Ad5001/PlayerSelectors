@@ -106,12 +106,13 @@ class Main extends PluginBase implements Listener {
         return true;
     }
 
-    /**
-     * Return all the params in an array form in a match.
-     *
-     * @param array $match
-     * @return void
-     */
+	/**
+	 * Return all the params in an array form in a match.
+	 *
+	 * @param array $match
+	 * @param int $index
+	 * @return array
+	 */
     public function checkArgParams(array $match, int $index): array{
         $params = [];
         if(strlen($match[2][$index]) !== 0){ // Is there any command parameter?
