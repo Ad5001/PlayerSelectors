@@ -37,11 +37,11 @@ class ClosestPlayer extends Selector{
             // Checking the closest player
             foreach($online as $p){
                 if($p->getLevel()->getName() == $sender->getLevel()->getName() &&
-                 (!isset($selectedP) || $p->distanceSquared($sender) < $selectorP->distanceSquared($sender))){
+                 (!isset($selectedP) || $p->distanceSquared($sender) < $selectedP->distanceSquared($sender))){
                     $selectedP = $p;
                 }
             }
-            return [$selectorP->getName()];
+            return [$selectedP->getName()];
         } else {
             // Otherwise, just return sender's name because there's no other player.
             return [$sender->getName()];
