@@ -40,7 +40,7 @@ class Entities extends Selector{
                 if($params["c"] !== 0 && count($return) == $params["c"]) continue; // Too much players
                 if($e->getLevel()->getName() !== $params["lvl"] && $params["lvl"] !== "") continue; // Not in the right level
                 if(!$this->checkDefaultParams($e, $params)) continue;
-                $return[] = "e" . $e->getId();
+                $return[] = $e->getId();
             }
         }
         return array_merge($return, Main::getSelector("a")->applySelector($sender, $parameters)); // Merging w/ all players so that it also adds players.
