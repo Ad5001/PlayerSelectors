@@ -87,8 +87,7 @@ class Main extends PluginBase implements Listener {
                 foreach($commandsToExecute as $indexB => $cmd){
                     // Foreaching the returning commands to push them to the new commands to be executed at the next run.
                     foreach(self::$selectors[$matches[1][$indexB]]->applySelector($sender, $params) as $selectorStr){
-                        if(strpos($selectorStr, " ") !== -1) $selectorStr = explode(" ", $selectorStr)[count(explode(" ", $selectorStr)) - 1]; // Name w/ spaces. Match the nearest name in the player. Not perfect :/
-                        $newCommandsToExecute[] = substr_replace($cmd, " " . $selectorStr . " ", strpos($cmd, $match), strlen($match));
+                        $newCommandsToExecute[] = substr_replace($cmd, " \"" . $selectorStr . "\" ", strpos($cmd, $match), strlen($match));
                     }
                     if(count($newCommandsToExecute) == 0) {
                         $sender->sendMessage("§cYour selector $match (" . self::$selectors[$matches[1][$indexB]]->getName() . ") did not match any player/entity.");
